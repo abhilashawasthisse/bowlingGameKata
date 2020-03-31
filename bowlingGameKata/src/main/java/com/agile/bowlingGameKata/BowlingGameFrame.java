@@ -8,6 +8,8 @@ public class BowlingGameFrame {
 
     private int scoreOfRollTwo;
 
+    private int scoreOfRollThreeForLastFrame;
+
     private int totalScore;
 
     public Integer getFrame() {
@@ -40,6 +42,14 @@ public class BowlingGameFrame {
 
     public void setTotalScore(int totalScore) {
         this.totalScore = totalScore;
+    }
+
+    public int getScoreOfRollThreeForLastFrame() {
+        return scoreOfRollThreeForLastFrame;
+    }
+
+    public void setScoreOfRollThreeForLastFrame(int scoreOfRollThreeForLastFrame) {
+        this.scoreOfRollThreeForLastFrame = scoreOfRollThreeForLastFrame;
     }
 
     

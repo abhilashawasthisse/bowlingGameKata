@@ -40,12 +40,19 @@ public class BowlingGame {
 				
 				frameWiseRollScore.put(frame, bowlingGameFrame);
 
-			} else {
+			} else if(roll == 2) {
 
 				BowlingGameFrame bowlingGameFrame = frameWiseRollScore.get(frame);
 				bowlingGameFrame.setScoreOfRollTwo(score);
 
 				frameWiseRollScore.put(frame, bowlingGameFrame);
+			} else if(roll == 3){
+
+				BowlingGameFrame bowlingGameFrame = frameWiseRollScore.get(frame);
+				bowlingGameFrame.setScoreOfRollThreeForLastFrame(score);
+
+				frameWiseRollScore.put(frame, bowlingGameFrame);
+
 			}
 
 		}
@@ -71,10 +78,36 @@ public class BowlingGame {
 		int totalSum = 0;
 
 		for (Integer frame = 1; frame <= totalFrames; frame++) {
+			
+			if(isValidSpare(frame) ){
+				int bonus=0;
+				if(frame == 10){
+					 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
+				}else{
+					bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
+				}
+				totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
+				
+
+			}else{
 
 			totalSum += sumOfTwoRollsInAFrame(frame);
+			}
+			
 		}
 		return totalSum;
 	}
 
+	public boolean isValidSpare(int i) {
+		int sumOfScore = sumOfTwoRollsInAFrame(i);
+		
+		
+		if(sumOfScore==10){
+
+		return true;
+		}else
+		return false;
+	}
+
+	
 }
