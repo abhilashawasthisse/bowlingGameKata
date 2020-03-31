@@ -9,21 +9,21 @@ import org.junit.Test;
 public class BowlingGameTest {
 
     @Test
-    public void shouldReturnTrue_WhenFramesAreTen() {
+    public void shouldReturnTrue_WhenFrameIsBetweenOneToTen() {
         //Arrange
         BowlingGame bowlingGame = new BowlingGame();
         //Act
-        boolean result = bowlingGame.getTotalFrames(10);
+        boolean result = bowlingGame.checkIfFrameIsValid(10);
         //Assert
         assertTrue(result);
     }
 
     @Test
-    public void shouldReturnFalse_WhenFramesAreNotTen() {
+    public void shouldReturnFalse_WhenFrameIsNotBetweenOneToTen() {
         //Arrange
         BowlingGame bowlingGame = new BowlingGame();
         //Act
-        boolean result = bowlingGame.getTotalFrames(11);
+        boolean result = bowlingGame.checkIfFrameIsValid(11);
         //Assert
         assertFalse(result);
     }
@@ -39,7 +39,7 @@ public class BowlingGameTest {
     }
 
     @Test
-    public void shouldReturnFalse_WhenRollsPerFrameAreTwo() {
+    public void shouldReturnFalse_WhenRollsPerFrameAreNotTwo() {
         //Arrange
         BowlingGame bowlingGame = new BowlingGame();
         //Act
@@ -72,13 +72,33 @@ public class BowlingGameTest {
     public void shouldReturnSumOf_TwoRollsOfAFrame() {
         BowlingGame bowlingGame = new BowlingGame();
 
-        int scoreOfFirstRoll = bowlingGame.roll(1, 1, 2);
+        bowlingGame.roll(1, 1, 3);   //roll(current frame, first roll/second roll, score)
 
-        int scoreOfSecondRoll = bowlingGame.roll(1, 2, 5);
+        bowlingGame.roll(1, 2, 4);
 
-        int sum = bowlingGame.sumOfTwoRollsInAFrame(scoreOfFirstRoll,scoreOfSecondRoll);
+        int sum = bowlingGame.sumOfTwoRollsInAFrame(1);
 
         assertEquals(7, sum);
+    }
+
+    @Test
+    public void shouldReturnTotalScoreForNormalPlay() {
+
+        BowlingGame bowlingGame = new BowlingGame();
+
+        // Frame One
+        bowlingGame.roll(1, 1, 2);   //roll(current frame, first roll/second roll, score)
+
+        bowlingGame.roll(1, 2, 5);
+
+        // Frame Two
+        bowlingGame.roll(2, 1, 7);   //roll(current frame, first roll/second roll, score)
+
+        bowlingGame.roll(2, 2, 2);
+
+        int totalScore = bowlingGame.getTotalScoreForNormalPlay(2);
+
+        assertEquals(16, totalScore);
     }
 
 }
