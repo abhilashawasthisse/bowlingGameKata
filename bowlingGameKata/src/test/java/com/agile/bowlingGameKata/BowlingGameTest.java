@@ -154,4 +154,104 @@ public class BowlingGameTest {
         assertEquals(77,result);
     }
 
+    @Test
+    public void  shouldReturnTrue_WhenFrameHasAValidStrike() {
+
+        BowlingGame bowlingGame = new BowlingGame();
+
+        // Frame One
+        bowlingGame.roll(1, 1, 10);   //roll(current frame, first roll/second roll, score)
+
+        //bowlingGame.roll(1, 2, 5);
+
+       
+
+        boolean result = bowlingGame.isValidStrike(1);
+
+        assertTrue(result);
+
+
+    }
+
+    @Test
+    public void shouldReturnTotalScore_OnStrike(){
+     
+        BowlingGame bowlingGame = new BowlingGame();
+        bowlingGame.roll(1, 1, 10);   //roll(current frame, first roll/second roll, score)
+
+        
+        bowlingGame.roll(2, 1, 4);
+        bowlingGame.roll(2, 2, 5);
+
+
+        int result = bowlingGame.getTotalScoreForNormalPlay(2);
+        assertEquals(28,result);
+    }
+
+    @Test
+    public void shouldReturnTotalScore_WhenLastFrameHasAStrike(){
+     
+        BowlingGame bowlingGame = new BowlingGame();
+        for(int frame=1; frame<=9; frame++){
+            bowlingGame.roll(frame, 1, 5);
+            bowlingGame.roll(frame, 2, 2);
+        
+
+        }
+        bowlingGame.roll(10, 1, 10);
+        bowlingGame.roll(10, 2, 10);
+        bowlingGame.roll(10, 3, 10);
+
+
+
+        int result = bowlingGame.getTotalScoreForNormalPlay(10);
+        assertEquals(93,result);
+    }
+
+    @Test
+    public void shouldReturnTotalScore_WithSampleDataGiven(){
+     
+        BowlingGame bowlingGame = new BowlingGame();
+        
+      
+    bowlingGame.roll(1, 1, 1);   
+    bowlingGame.roll(1, 2, 4);   
+   
+    bowlingGame.roll(2, 1, 4);   
+    bowlingGame.roll(2, 2, 5);   
+   
+    bowlingGame.roll(3, 1, 6);   
+    bowlingGame.roll(3, 2, 4);   
+   
+    bowlingGame.roll(4, 1, 5);   
+    bowlingGame.roll(4, 2, 5);   
+   
+    bowlingGame.roll(5, 1, 10);   
+   
+    bowlingGame.roll(6, 1, 0);   
+    bowlingGame.roll(6, 2, 1);   
+   
+    bowlingGame.roll(7, 1, 7);   
+    bowlingGame.roll(7, 2, 3);   
+   
+    bowlingGame.roll(8, 1, 6);   
+    bowlingGame.roll(8, 2, 4);   
+   
+    bowlingGame.roll(9, 1, 10);   
+   
+    bowlingGame.roll(10, 1, 2);   
+    bowlingGame.roll(10, 2, 8);   
+    bowlingGame.roll(10, 3, 6);
+
+
+
+        int result = bowlingGame.getTotalScoreForNormalPlay(10);
+        assertEquals(133,result);
+    }
+
+
+
+
+    
+
 }
