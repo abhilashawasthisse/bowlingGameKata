@@ -96,7 +96,7 @@ public class BowlingGameTest {
 
         bowlingGame.roll(2, 2, 2);
 
-        int totalScore = bowlingGame.getTotalScoreForNormalPlay(2);
+        int totalScore = bowlingGame.getTotalScore();
 
         assertEquals(16, totalScore);
     }
@@ -131,7 +131,7 @@ public class BowlingGameTest {
         bowlingGame.roll(2, 2, 5);
 
 
-        int result = bowlingGame.getTotalScoreForNormalPlay(2);
+        int result = bowlingGame.getTotalScore();
         assertEquals(23,result);
     }
     @Test
@@ -150,7 +150,7 @@ public class BowlingGameTest {
 
 
 
-        int result = bowlingGame.getTotalScoreForNormalPlay(10);
+        int result = bowlingGame.getTotalScore();
         assertEquals(77,result);
     }
 
@@ -184,7 +184,7 @@ public class BowlingGameTest {
         bowlingGame.roll(2, 2, 5);
 
 
-        int result = bowlingGame.getTotalScoreForNormalPlay(2);
+        int result = bowlingGame.getTotalScore();
         assertEquals(28,result);
     }
 
@@ -204,7 +204,7 @@ public class BowlingGameTest {
 
 
 
-        int result = bowlingGame.getTotalScoreForNormalPlay(10);
+        int result = bowlingGame.getTotalScore();
         assertEquals(93,result);
     }
 
@@ -245,7 +245,7 @@ public class BowlingGameTest {
 
 
 
-        int result = bowlingGame.getTotalScoreForNormalPlay(10);
+        int result = bowlingGame.getTotalScore();
         assertEquals(133,result);
     }
 

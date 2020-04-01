@@ -1,5 +1,6 @@
 package com.agile.bowlingGameKata;
 
+import java.util.Collections;
 import java.util.HashMap;
 
 public class BowlingGame {
@@ -73,40 +74,83 @@ public class BowlingGame {
 		return totalScore;
 	}
 
-	public int getTotalScoreForNormalPlay(Integer totalFrames) {
+	public int getTotalScore() {
 
 		int totalSum = 0;
+		Integer totalFrames = Collections.max(frameWiseRollScore.keySet());
+		
 
 		for (Integer frame = 1; frame <= totalFrames; frame++) {
 
-			if(isValidStrike(frame)){
-				int bonus=0;
-				if(frame == 10){
-					bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
-					totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
-
-				}else{
-				bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
-				totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
-				}
-			} else if(isValidSpare(frame) ){
-				int bonus=0;
-				if(frame == 10){
-					 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
-				}else{
-					bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
-				}
-				totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
-				
-
-			}else{
-
-				totalSum += sumOfTwoRollsInAFrame(frame);
-			}
+			totalSum = totalSum + getTotalScoreForFrame(frame);
 			
 		}
 		return totalSum;
 	}
+
+	public int getTotalScoreForFrame(int frame){
+
+		int totalSum=0;
+
+		if(isValidStrike(frame)){
+			int bonus=0;
+			if(frame == 10){
+				bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
+				
+
+			}else{
+			bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
+			
+			}
+			totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
+		} else if(isValidSpare(frame) ){
+			int bonus=0;
+			if(frame == 10){
+				 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
+			}else{
+				bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
+			}
+			totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
+			
+
+		}else{
+
+			totalSum += sumOfTwoRollsInAFrame(frame);
+		}
+		
+		return totalSum;
+
+	}
+
+	public int getBonusForFrame(int frame, String bonusType){
+		int bonus=0;
+		if(isValidStrike(frame)){
+			
+			if(frame == 10){
+				bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
+				
+
+			}else{
+			bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
+			
+			}
+			//totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
+		} else if(isValidSpare(frame) ){
+			
+			if(frame == 10){
+				 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
+			}else{
+				bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
+			}
+			//totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
+			
+
+		}
+		
+		return bonus;
+
+	
+			}
 
 	public boolean isValidSpare(int i) {
 		int sumOfScore = sumOfTwoRollsInAFrame(i);
