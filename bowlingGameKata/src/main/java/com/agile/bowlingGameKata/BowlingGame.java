@@ -91,66 +91,49 @@ public class BowlingGame {
 	public int getTotalScoreForFrame(int frame){
 
 		int totalSum=0;
+		int bonus = 0;
 
 		if(isValidStrike(frame)){
-			int bonus=0;
-			if(frame == 10){
-				bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
-				
 
-			}else{
-			bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
-			
-			}
+			bonus = getBonusForFrame(frame);
+
 			totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
+
 		} else if(isValidSpare(frame) ){
-			int bonus=0;
-			if(frame == 10){
-				 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
-			}else{
-				bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
-			}
-			totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
 			
+			bonus = getBonusForFrame(frame);
+
+			totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
 
 		}else{
-
 			totalSum += sumOfTwoRollsInAFrame(frame);
 		}
-		
 		return totalSum;
-
 	}
 
-	public int getBonusForFrame(int frame, String bonusType){
+	public int getBonusForFrame(int frame){
 		int bonus=0;
 		if(isValidStrike(frame)){
 			
 			if(frame == 10){
 				bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
-				
 
 			}else{
 			bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
 			
 			}
-			//totalSum += bonus+frameWiseRollScore.get(frame).getScoreOfRollOne();
 		} else if(isValidSpare(frame) ){
 			
 			if(frame == 10){
 				 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
 			}else{
 				bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
-			}
-			//totalSum += sumOfTwoRollsInAFrame(frame) + bonus ;
-			
-
+			}			
 		}
 		
 		return bonus;
 
-	
-			}
+	}
 
 	public boolean isValidSpare(int i) {
 		int sumOfScore = sumOfTwoRollsInAFrame(i);
