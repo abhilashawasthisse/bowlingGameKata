@@ -119,15 +119,18 @@ public class BowlingGame {
 				bonus=frameWiseRollScore.get(frame).getScoreOfRollTwo()+frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
 
 			}else{
-			bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
-			
+				if (frameWiseRollScore.get(frame+1) != null) {
+					bonus=frameWiseRollScore.get(frame+1).getScoreOfRollOne()+frameWiseRollScore.get(frame+1).getScoreOfRollTwo();
+				}
 			}
 		} else if(isValidSpare(frame) ){
 			
 			if(frame == 10){
 				 bonus= frameWiseRollScore.get(frame).getScoreOfRollThreeForLastFrame();
 			}else{
-				bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
+				if (frameWiseRollScore.get(frame+1) != null) {
+					bonus = frameWiseRollScore.get(frame+1).getScoreOfRollOne();
+				}
 			}			
 		}
 		
@@ -135,8 +138,8 @@ public class BowlingGame {
 
 	}
 
-	public boolean isValidSpare(int i) {
-		int sumOfScore = sumOfTwoRollsInAFrame(i);
+	public boolean isValidSpare(int frame) {
+		int sumOfScore = sumOfTwoRollsInAFrame(frame);
 		
 		
 		if(sumOfScore==10){
@@ -146,8 +149,8 @@ public class BowlingGame {
 		return false;
 	}
 
-	public boolean isValidStrike(int i) {
-		if(frameWiseRollScore.get(i).getScoreOfRollOne() == 10)
+	public boolean isValidStrike(int frame) {
+		if(frameWiseRollScore.get(frame).getScoreOfRollOne() == 10)
 			return true;
 		else
 			return false;
