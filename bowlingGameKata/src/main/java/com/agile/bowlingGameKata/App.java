@@ -15,9 +15,6 @@ public class App
 
         Scanner scanner =  new Scanner(System.in);
 
-        // System.out.print("Enter Total Players/Participants: ");
-        // scanner.nextInt();
-
         System.out.print("Enter Total Frames: ");
         int totalFrames = scanner.nextInt();
 
